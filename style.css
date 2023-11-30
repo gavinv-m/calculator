@@ -73,12 +73,12 @@ button:hover {
     flex: 1;
 }
 
-.operators {
+.core-operators {
     background-color: #282a2f;
     color: white;
 }
 
-.operators:hover, 
+.core-operators:hover, 
 #equals-button:hover {
     background-color: orange;
 }
