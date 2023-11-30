@@ -17,20 +17,17 @@ for (let operand of operands) {
   }
 
 for (let operator of operators) {
-  operator.addEventListener('click', (event) => {
-
-    if (operandOneActive) {
-      operandOneActive = false;
-      operandTwoActive = true;
-    }
-
-    operator = event.target.textContent;
-  });
+  operator.addEventListener('click', selectOperator); 
 }
+
+equalsButton.addEventListener('click', () => {
+
+  operate(operandOne, operator, operandTwo);
+});
   
 function displayText(event) {
 
-  let text; 
+  let text;
 
     if (operandOneActive) {
       display.innerHTML = '';
@@ -45,4 +42,53 @@ function displayText(event) {
       operandTwo += text;
       display.innerHTML = operandTwo;
     }
+}
+
+function selectOperator(event) {
+
+    if (operandOneActive) {
+      operandOneActive = false;
+      operandTwoActive = true;
+    }
+
+    operator = event.target.textContent;
+}
+
+function operate(numberOne, operatorSign, numberTwo) {
+
+  numberOne = +numberOne; 
+  numberTwo = +numberTwo;
+
+  switch (operatorSign) {
+
+    case '+':
+      let resultAdd = add(numberOne, numberTwo);
+      let resultAddString = String(resultAdd);
+      display.innerHTML = '';
+      display.innerHTML = resultAddString;
+      break;
+
+    case '-': 
+      let resultSubtract = subtract(numberOne, numberTwo);
+      let resultSubtractString = String(resultSubtract);
+      display.innerHTML = '';
+      display.innerHTML = resultSubtractString;
+      break;
+    
+    case '*':
+      let resultMultiply = multiply(numberOne, numberTwo);
+      let resultMultiplyString = String(resultMultiply);
+      display.innerHTML = '';
+      display.innerHTML = resultMultiplyString;
+      break;
+
+    case '÷': 
+      let resultDivide = divide(numberOne, numberTwo);
+      let resultDivideString = String(resultDivide);
+      display.innerHTML = '';
+      display.innerHTML = resultDivideString;
+      break;
+
+  }
+
 }
