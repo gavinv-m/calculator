@@ -45,10 +45,14 @@ button:hover {
 }
 
 #calculator-display {
+    align-items: flex-end;
     border-color: #DEDAD6;
     border-radius: 15px;
     border-style: solid;
+    display: flex;
     flex: 0.2;
+    font-size: 50px;
+    justify-content: flex-end;
     width: 250px;
 }
 
