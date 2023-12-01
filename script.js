@@ -4,11 +4,13 @@ const erase = document.getElementById('erase');
 const equalsButton = document.getElementById('equals-button');
 const operands = document.getElementsByClassName('operands');
 const operators = document.getElementsByClassName('all-operators');
+const history = document.getElementById('history');
 
 let operandOne = '';
 let operandTwo = '';
 let operator = '';
 let operatorCounter = 0;
+let recentResult = '';
 
 let operandOneActive = true;
 let operandTwoActive = false;
@@ -43,7 +45,13 @@ erase.addEventListener('click', () => {
 equalsButton.addEventListener('click', () => {
 
   let result = operate(operandOne, operator, operandTwo);
-  // If added to operand one must be the full value
+  recentResult = result;
+  // operandOne = result;
+
+  if (operandTwoActive) {
+    operandOneActive = true;
+    operandTwoActive = false;
+  }
 
   if (result.length > 10) {
 
@@ -63,6 +71,21 @@ for (let operand of operands) {
 for (let operator of operators) {
   operator.addEventListener('click', selectOperator); 
 }
+
+// history.addEventListener('click', () => {
+
+//   display.innerHTML = '';
+
+//   if (operandOneActive) {
+//     operandOne = recentResult;
+//     display.innerHTML = operandOne;
+//   }
+
+//   else {
+//     operandTwo = recentResult;
+//     display.innerHTML = operandOne;
+//   }
+// }); 
 
   
 function displayText(event) {
