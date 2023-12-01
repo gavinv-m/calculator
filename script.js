@@ -44,21 +44,22 @@ erase.addEventListener('click', () => {
 
 equalsButton.addEventListener('click', () => {
 
-  let result = operate(operandOne, operator, operandTwo);
-  recentResult = result;
-  // operandOne = result;
-
   if (operandTwoActive) {
     operandOneActive = true;
     operandTwoActive = false;
   }
+
+  let result = operate(operandOne, operator, operandTwo);
+  recentResult = result;
+  operandOne = result;
+  operandTwo = '';
 
   if (result.length > 10) {
 
     result = result.slice(0, 10);
   }
 
-  display.innerHTML = '';
+  display.innerHTML = ''; // Seems redundant
   display.innerHTML = result;
 });
 
@@ -72,20 +73,20 @@ for (let operator of operators) {
   operator.addEventListener('click', selectOperator); 
 }
 
-// history.addEventListener('click', () => {
+history.addEventListener('click', () => {
 
-//   display.innerHTML = '';
+  display.innerHTML = recentResult; //
 
-//   if (operandOneActive) {
-//     operandOne = recentResult;
-//     display.innerHTML = operandOne;
-//   }
+  if (operandOneActive) {
+    operandOne = recentResult;
+    // display.innerHTML = operandOne;
+  }
 
-//   else {
-//     operandTwo = recentResult;
-//     display.innerHTML = operandOne;
-//   }
-// }); 
+  else {
+    operandTwo = recentResult;
+    // display.innerHTML = operandOne;
+  }
+}); 
 
   
 function displayText(event) {
