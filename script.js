@@ -23,7 +23,15 @@ clear.addEventListener('click', () => {
 
 equalsButton.addEventListener('click', () => {
 
-  operate(operandOne, operator, operandTwo);
+  let result = operate(operandOne, operator, operandTwo);
+
+  if (result.length > 10) {
+
+    result = result.slice(0, 10);
+  }
+
+  display.innerHTML = '';
+  display.innerHTML = result;
 });
 
 for (let operand of operands) {
@@ -76,31 +84,23 @@ function operate(numberOne, operatorSign, numberTwo) {
     case '+':
       let resultAdd = add(numberOne, numberTwo);
       let resultAddString = String(resultAdd);
-      display.innerHTML = '';
-      display.innerHTML = resultAddString;
-      break;
+      return resultAddString;
 
     case '-': 
       let resultSubtract = subtract(numberOne, numberTwo);
       let resultSubtractString = String(resultSubtract);
-      display.innerHTML = '';
-      display.innerHTML = resultSubtractString;
-      break;
+      return resultSubtractString;
+
     
     case '*':
       let resultMultiply = multiply(numberOne, numberTwo);
       let resultMultiplyString = String(resultMultiply);
-      display.innerHTML = '';
-      display.innerHTML = resultMultiplyString;
-      break;
+      return resultMultiplyString;
 
     case '÷': 
       let resultDivide = divide(numberOne, numberTwo);
       let resultDivideString = String(resultDivide);
-      display.innerHTML = '';
-      display.innerHTML = resultDivideString;
-      break;
-
+      return resultDivideString;
   }
 
 }
