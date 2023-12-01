@@ -1,3 +1,4 @@
+const clear = document.getElementById('clear');
 const display = document.getElementById('calculator-display');
 const equalsButton = document.getElementById('equals-button');
 const operands = document.getElementsByClassName('operands');
@@ -12,6 +13,19 @@ let operandOneActive = true;
 let operandTwoActive = false;
 
 
+clear.addEventListener('click', () => {
+
+  display.innerHTML = '';
+  operandOne = '';
+  operandTwo = '';
+  operator = '';
+}); 
+
+equalsButton.addEventListener('click', () => {
+
+  operate(operandOne, operator, operandTwo);
+});
+
 for (let operand of operands) {
     operand.addEventListener('click', displayText);
   }
@@ -20,10 +34,6 @@ for (let operator of operators) {
   operator.addEventListener('click', selectOperator); 
 }
 
-equalsButton.addEventListener('click', () => {
-
-  operate(operandOne, operator, operandTwo);
-});
   
 function displayText(event) {
 
