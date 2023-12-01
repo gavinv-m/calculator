@@ -42,14 +42,16 @@ function displayText(event) {
     if (operandOneActive) {
       display.innerHTML = '';
       text = event.target.textContent;
-      operandOne += text;
+
+      if (operandOne.length < 10) operandOne += text;
       display.innerHTML = operandOne;
     }
 
     else {
       display.innerHTML = '';
       text = event.target.textContent;
-      operandTwo += text;
+
+      if (operandTwo.length < 10) operandTwo += text;
       display.innerHTML = operandTwo;
     }
 }
