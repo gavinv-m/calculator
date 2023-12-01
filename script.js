@@ -1,5 +1,6 @@
 const clear = document.getElementById('clear');
 const display = document.getElementById('calculator-display');
+const erase = document.getElementById('erase');
 const equalsButton = document.getElementById('equals-button');
 const operands = document.getElementsByClassName('operands');
 const operators = document.getElementsByClassName('all-operators');
@@ -21,9 +22,28 @@ clear.addEventListener('click', () => {
   operator = '';
 }); 
 
+
+erase.addEventListener('click', () => {
+
+  if (operandOneActive) {
+    
+    let operandOneLength = operandOne.length;
+    operandOne = operandOne.slice(0, operandOneLength - 1);
+    display.innerHTML = operandOne;
+  }
+
+  else {
+    let operandTwoLength = operandTwo.length;
+    operandTwo = operandTwo.slice(0, operandTwoLength - 1);
+    display.innerHTML = operandTwo;
+  }
+});
+
+
 equalsButton.addEventListener('click', () => {
 
   let result = operate(operandOne, operator, operandTwo);
+  // If added to operand one must be the full value
 
   if (result.length > 10) {
 
@@ -34,9 +54,11 @@ equalsButton.addEventListener('click', () => {
   display.innerHTML = result;
 });
 
+
 for (let operand of operands) {
     operand.addEventListener('click', displayText);
   }
+
 
 for (let operator of operators) {
   operator.addEventListener('click', selectOperator); 
@@ -64,6 +86,7 @@ function displayText(event) {
     }
 }
 
+
 function selectOperator(event) {
 
     if (operandOneActive) {
@@ -73,6 +96,7 @@ function selectOperator(event) {
 
     operator = event.target.textContent;
 }
+
 
 function operate(numberOne, operatorSign, numberTwo) {
 
