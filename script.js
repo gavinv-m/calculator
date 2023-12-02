@@ -22,6 +22,7 @@ clear.addEventListener('click', () => {
   operandOne = '';
   operandTwo = '';
   operator = '';
+  operatorCounter = 0;
 }); 
 
 
@@ -75,6 +76,18 @@ function calculateResult() {
   if (operandTwoActive) {
     operandOneActive = true;
     operandTwoActive = false;
+  }
+
+  if (operandOne.includes('√') || operandTwo.includes('√')) {
+    operator = '√';
+
+    if (operandOne.includes('√')) {
+      operandOne = operandOne.replace('√', '');
+    }
+
+    else {
+      operandTwo = operandTwo.replace('√', '');
+    }
   }
 
   let result = operate(operandOne, operator, operandTwo);
@@ -134,7 +147,7 @@ function selectOperator(event) {
 }
 
 
-function operate(numberOne, operatorSign, numberTwo) {
+function operate(numberOne, operatorSign, numberTwo='1') {
 
   numberOne = +numberOne; 
   numberTwo = +numberTwo;
@@ -161,6 +174,20 @@ function operate(numberOne, operatorSign, numberTwo) {
       let resultDivide = divide(numberOne, numberTwo);
       let resultDivideString = String(resultDivide);
       return resultDivideString;
-  }
 
+    case 'x^y': 
+      let resultExp = exp(numberOne, numberTwo);
+      let resultExpString = String(resultExp);
+      return resultExpString;
+
+    case '!':
+      let resultFactorial = factorial(numberOne);
+      let resultFactorialString = String(resultFactorial);
+      return resultFactorialString;
+
+      case '√': 
+        let resultSqrt = squareRoot(numberOne);
+        let resultSqrtString = String(resultSqrt);
+        return resultSqrtString;
+  }
 }
