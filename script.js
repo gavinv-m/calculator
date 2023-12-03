@@ -6,6 +6,7 @@ const operands = document.getElementsByClassName('operands');
 const operators = document.getElementsByClassName('all-operators');
 const history = document.getElementById('history');
 
+let decimalCounter = 0;
 let operandOne = '';
 let operandTwo = '';
 let operator = '';
@@ -18,6 +19,7 @@ let operandTwoActive = false;
 
 clear.addEventListener('click', () => {
 
+  decimalCounter = 0;
   display.innerHTML = '';
   operandOne = '';
   operandTwo = '';
@@ -33,17 +35,25 @@ erase.addEventListener('click', () => {
     let operandOneLength = operandOne.length;
     operandOne = operandOne.slice(0, operandOneLength - 1);
     display.innerHTML = operandOne;
+
+    let isThereDecimal = operandOne.includes('.');
+    if (!isThereDecimal) decimalCounter = 0;
   }
 
   else {
     let operandTwoLength = operandTwo.length;
     operandTwo = operandTwo.slice(0, operandTwoLength - 1);
     display.innerHTML = operandTwo;
+
+    let isThereDecimal = operandTwo.includes('.');
+    if (!isThereDecimal) decimalCounter = 0;
   }
 });
 
 
 equalsButton.addEventListener('click', () => {
+
+  decimalCounter = 0;
   operatorCounter = 0;
   calculateResult();
 });
@@ -106,23 +116,27 @@ function calculateResult() {
 
 function displayText(event) {
 
-  let text;
+  let operand = event.target.textContent;
+  
+  if (operand === '.') {
 
-    if (operandOneActive) {
-      display.innerHTML = '';
-      text = event.target.textContent;
+    decimalCounter++;
 
-      if (operandOne.length < 10) operandOne += text;
-      display.innerHTML = operandOne;
-    }
+    if (decimalCounter > 1) return;
+  }
 
-    else {
-      display.innerHTML = '';
-      text = event.target.textContent;
+  if (operandOneActive && operandOne.length < 10) {
 
-      if (operandTwo.length < 10) operandTwo += text;
-      display.innerHTML = operandTwo;
-    }
+    operandOne += operand;
+    display.innerHTML = operandOne;
+  }
+
+  else if (operandTwoActive && operandTwo.length < 10) {
+
+    operandTwo += operand;
+    display.innerHTML = operandTwo;
+  }
+
 }
 
 
@@ -132,6 +146,7 @@ function selectOperator(event) {
 
     if (operatorCounter > 1) {
       calculateResult();
+      decimalCounter = 0;
       operator = event.target.textContent;
       operandOneActive = false;
       operandTwoActive = true;
@@ -139,6 +154,7 @@ function selectOperator(event) {
     }
 
     if (operandOneActive) {
+      decimalCounter = 0;
       operandOneActive = false;
       operandTwoActive = true;
     }
